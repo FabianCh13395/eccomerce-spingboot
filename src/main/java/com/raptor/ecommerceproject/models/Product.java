@@ -1,6 +1,12 @@
 package com.raptor.ecommerceproject.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = ("products"))
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nameProduct;
     private String description;
@@ -8,13 +14,26 @@ public class Product {
     private double price;
     private int quantity;
 
-    public Product(Long id, String nameProduct, String description, String image, double price, int quantity) {
+    //Atributo User
+    @ManyToOne
+    private User user;
+
+    public Product(Long id, String nameProduct, String description, String image, double price, int quantity, User user) {
         this.id = id;
         this.nameProduct = nameProduct;
         this.description = description;
         this.image = image;
         this.price = price;
         this.quantity = quantity;
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Product() {

@@ -1,11 +1,26 @@
 package com.raptor.ecommerceproject.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "details")
 public class OrderDetail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nameOrder;
     private double quantityOrder;
     private double priceOrder;
     private double totalOrder;
+
+    //Atributo de tipo orden
+    @ManyToOne
+    private Order order;
+
+
+    //Atributo para recuperar los productos
+    @OneToOne
+    private Product product;
 
 
     public OrderDetail(Long id, String nameOrder, double quantityOrder, double priceOrder, double totalOrder) {
@@ -57,6 +72,22 @@ public class OrderDetail {
 
     public void setTotalOrder(double totalOrder) {
         this.totalOrder = totalOrder;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override

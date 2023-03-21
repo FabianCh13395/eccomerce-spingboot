@@ -1,6 +1,14 @@
 package com.raptor.ecommerceproject.models;
 
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = ("users"))
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String username;
@@ -8,7 +16,26 @@ public class User {
     private String address;
     private String phone;
     private String typeUser;
+
+    //Relacion con la tabla productos
+    @OneToMany(mappedBy = "user")
+    private List<Product> products;
+    //Relacion con la tabla ordenes
+    @OneToMany(mappedBy = "userOrder")
+    private List<Order> orders;
+
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     private String password;
+
+
 
     public User(Long id, String name, String username, String mail, String address, String phone, String typeUser, String password) {
         this.id = id;
