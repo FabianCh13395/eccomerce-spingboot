@@ -7,10 +7,9 @@ import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 
 
 @Controller
@@ -38,6 +37,22 @@ public class ProductController {
         User user=new User(1L,"","","","","","","");
         product.setUser(user);
         productService.save(product);
+        return "redirect:/products";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editProduct(@PathVariable Long id,Model model){
+        Product product=new Product();
+        Optional <Product> optionalProduct=productService.get(id);
+        product=optionalProduct.get();
+        //LOGGER.info("Producto Buscado {}",product);
+        model.addAttribute("producto",product);
+        return "products/edit";
+    }
+
+    @PostMapping("/update")
+    public String updateProduct(Product product){
+        productService.update(product);
         return "redirect:/products";
     }
 
