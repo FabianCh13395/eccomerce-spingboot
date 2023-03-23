@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.StringTokenizer;
 
 
 @Controller
@@ -53,6 +54,12 @@ public class ProductController {
     @PostMapping("/update")
     public String updateProduct(Product product){
         productService.update(product);
+        return "redirect:/products";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id){
+        productService.delete(id);
         return "redirect:/products";
     }
 

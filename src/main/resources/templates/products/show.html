@@ -12,10 +12,10 @@
 
 
   <!-- Bootstrap core CSS -->
-  <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link th:href="@{css/heroic-features.css}" rel="stylesheet">
+  <link th:href="@{/css/heroic-features.css}" rel="stylesheet">
 
 </head>
 
@@ -58,10 +58,33 @@
         <td th:text="${product.quantity}"></td>
         <td th:text="${product.price}"></td>
         <td><a  class="btn btn-warning" th:href="@{products/edit/{id}(id=${product.id})}">Editar</a> </td>
-        <td><a  class="btn btn-danger" href="">Eliminar</a> </td>
+        <td><a  class="btn btn-danger" data-toggle="modal" data-target="#modal1">Eliminar</a>
+          <!-- Modal -->
+          <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="miModalLabel" th:text="'Producto: '+${product.nameProduct}"></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h4>Esta seguro que lo desea eliminar?</h4>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <a type="button" class="btn btn-primary" th:href="@{products/delete}+'/'+${product.id}">Aceptar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+
       </tr>       
     </tbody>
   </table>
+
 
 </div>
 <!-- /.container -->
@@ -69,8 +92,10 @@
 <!-- Footer -->
   <div th:include="manager/admin_template.html::footer"></div>
 
-  <script th:rc="@{vendor/jquery/jquery.min.js}"></script>
-  <script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+  <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
 
 </body>
 
