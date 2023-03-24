@@ -24,8 +24,20 @@ public class UploadFileService {
     }
 
     public void deleteImage(String nameImage){
-        String rutaImage="images//";
+       /* String rutaImage="images//";
         File file=new File(rutaImage+nameImage);
-        file.delete();
+       try {
+           file.delete();
+       }catch (Exception ex){
+           System.err.println("No se pudo eliminar el archivo "+ex.getMessage());
+       }*/
+        String rutaImage="images//";
+        Path path = Paths.get(rutaImage, nameImage);
+        try {
+            Files.delete(path);
+        } catch (IOException e) {
+            // Manejo de la excepción IOException
+            System.err.println("No se pudo eliminar el archivo: " + e.getMessage());
+        }
     }
 }
