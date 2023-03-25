@@ -2,10 +2,13 @@ package com.raptor.ecommerceproject.controllers;
 
 import com.raptor.ecommerceproject.models.Product;
 import com.raptor.ecommerceproject.services.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -13,6 +16,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class HomeController {
+    private final Logger log= LoggerFactory.getLogger(ProductController.class);
 
     @Autowired
     private ProductService productService;
@@ -22,6 +26,12 @@ public class HomeController {
         List<Product> productList=productService.findAll();
         model.addAttribute("products",productList);
         return "User/home";
+    }
+
+    @GetMapping("productohome/{id}")
+    public String productHome(@PathVariable Long id){
+        log.info("Id enviado como parámetro {}",id);
+        return "User/productohome";
     }
 
 
