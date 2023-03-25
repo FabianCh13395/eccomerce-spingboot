@@ -58,9 +58,9 @@
         <td th:text="${product.quantity}"></td>
         <td th:text="${product.price}"></td>
         <td><a  class="btn btn-warning" th:href="@{products/edit/{id}(id=${product.id})}">Editar</a> </td>
-        <td><a  class="btn btn-danger" data-toggle="modal" data-target="#modal1">Eliminar</a>
+        <td><a  class="btn btn-danger" data-toggle="modal"th:data-target="'#modal-'+${product.id}">Eliminar</a>
           <!-- Modal -->
-          <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+          <div class="modal fade"  th:id="'modal-'+${product.id}" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
