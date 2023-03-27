@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
@@ -29,10 +30,16 @@ public class HomeController {
     }
 
     @GetMapping("productohome/{id}")
-    public String productHome(@PathVariable Long id){
+    public String productHome(@PathVariable Long id,Model model){
         log.info("Id enviado como parámetro {}",id);
+        Product product=new Product();
+        Optional<Product> productOptional=productService.get(id);
+        product=productOptional.get();
+        model.addAttribute("product",product);
         return "User/productohome";
     }
+
+
 
 
 }
