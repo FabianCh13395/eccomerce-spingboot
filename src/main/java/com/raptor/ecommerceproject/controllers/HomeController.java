@@ -3,7 +3,9 @@ package com.raptor.ecommerceproject.controllers;
 import com.raptor.ecommerceproject.models.Order;
 import com.raptor.ecommerceproject.models.OrderDetail;
 import com.raptor.ecommerceproject.models.Product;
+import com.raptor.ecommerceproject.models.User;
 import com.raptor.ecommerceproject.services.ProductService;
+import com.raptor.ecommerceproject.services.UserService;
 import org.aspectj.weaver.ast.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,9 @@ public class HomeController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private UserService userService;
 
     //Almacenar los detalles de la orden
     List<OrderDetail> details=new ArrayList<OrderDetail>();
@@ -106,9 +111,15 @@ public class HomeController {
     }
 
     @GetMapping("/order")
-    public String orderUser(){
+    public String orderUser(Model model){
+        User user=userService.findById(1L).get();
+        model.addAttribute("usuario",user);
+        model.addAttribute("cart",details);
+        model.addAttribute("orden",order);
         return "User/resumenorden";
     }
+
+
 
 
 

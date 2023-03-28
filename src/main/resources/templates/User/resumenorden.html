@@ -33,7 +33,7 @@
         Spring eCommerce <small>Resumen de la orden</small>
     </h1>
 
-    <ol class="breadcrumb">w
+    <ol class="breadcrumb">
         <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
         <li class="breadcrumb-item active">Orden</li>
     </ol>
@@ -47,10 +47,9 @@
                         <h5 class="card-title">
                             DATOS ORDEN
                         </h5>
-                        <h6>Nombre: </h6>
-                        <h6>Correo: </h6>
-                        <h6>Dirección</h6>
-
+                        <h6 >Nombre: <span class="text-muted" th:text="${usuario.name}"></span> </h6>
+                        <h6 >Email: <span class="text-muted" th:text="${usuario.mail}"></span></h6>
+                        <h6 >Dirección: <span class="text-muted" th:text="${usuario.address}"></span></h6>
                         <h5 class="card-title">
                             PRODUCTOS
                         </h5>
@@ -65,12 +64,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Nombre</td>
-                                    <td>Precio</td>
-                                    <td>Cantidad</td>
-                                    <td>Total</td>
-
+                                <tr th:each="dtorder:${cart}">
+                                    <td th:text="${dtorder.nameOrder}"></td>
+                                    <td th:text="${dtorder.priceOrder}"></td>
+                                    <td th:text="${dtorder.quantityOrder}"></td>
+                                    <td  th:text="${dtorder.totalOrder}"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -84,7 +82,7 @@
                     <h2 class="card-title">Resumen Orden</h2>
 
                     <ul class="list-group">
-                        <li class="list-group-item"><h5> Total:</h5></li>
+                        <li class="list-group-item"><h5 th:text="'Total: '+${orden.total}"></h5></li>
                         <a href="#" class="btn btn-dark">Generar</a>
                     </ul>
                 </div>
