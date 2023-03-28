@@ -97,13 +97,19 @@ public class HomeController {
 
         return "User/carrito";
     }
+    //Ir a la vista carrito con los productos añadidos
     @GetMapping("/getCart")
     public String getCart(Model model){
-
         model.addAttribute("cart",details);
         model.addAttribute("orden",order);
         return "/User/carrito";
     }
+
+    @GetMapping("/order")
+    public String orderUser(){
+        return "User/resumenorden";
+    }
+
 
 
 
