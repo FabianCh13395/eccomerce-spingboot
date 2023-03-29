@@ -1,10 +1,9 @@
 package com.raptor.ecommerceproject.repositories;
 
-import com.raptor.ecommerceproject.models.Product;
+import com.raptor.ecommerceproject.models.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product,Long> {
-
+public interface IOrderRepository extends JpaRepository<Order,Long> {
 }

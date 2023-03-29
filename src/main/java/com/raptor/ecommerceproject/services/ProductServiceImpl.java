@@ -1,7 +1,7 @@
 package com.raptor.ecommerceproject.services;
 
 import com.raptor.ecommerceproject.models.Product;
-import com.raptor.ecommerceproject.repositories.ProductRepository;
+import com.raptor.ecommerceproject.repositories.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private ProductRepository productRepository;
+    private IProductRepository productRepository;
 
     @Override
     public Product save(Product product) {
