@@ -4,9 +4,10 @@ import com.raptor.ecommerceproject.models.Order;
 import com.raptor.ecommerceproject.models.OrderDetail;
 import com.raptor.ecommerceproject.models.Product;
 import com.raptor.ecommerceproject.models.User;
+import com.raptor.ecommerceproject.services.IOrderDetailService;
+import com.raptor.ecommerceproject.services.IOrderService;
 import com.raptor.ecommerceproject.services.ProductService;
 import com.raptor.ecommerceproject.services.UserService;
-import org.aspectj.weaver.ast.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +30,12 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private IOrderService orderService;
+
+    @Autowired
+    private IOrderDetailService orderDetailService;
 
     //Almacenar los detalles de la orden
     List<OrderDetail> details=new ArrayList<OrderDetail>();
@@ -119,6 +127,29 @@ public class HomeController {
         return "User/resumenorden";
     }
 
+    //Metodo para guardar la Orden
+    @GetMapping("/saveOrder")
+    public String saveOrder(Model model){
+        Date dateCreated=new Date();
+        order.setDateCreation(dateCreated);
+        order.setNumberOrder(orderService.generateNumberOrder());
+
+        //Usuario
+        User user=userService.findById(1L).get();
+        order.setUserOrder(user);
+        orderService.save(order);
+
+        //guardarDetalles
+        for (OrderDetail dt:details){
+            dt.setOrder(order);
+            orderDetailService.save(dt);
+        }
+        //limpiar lista y orden
+        order=new Order();
+        details.clear();
+
+        return "redirect:/";
+    }
 
 
 
