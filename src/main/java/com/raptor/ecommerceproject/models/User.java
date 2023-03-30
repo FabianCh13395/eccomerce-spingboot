@@ -16,6 +16,7 @@ public class User {
     private String address;
     private String phone;
     private String typeUser;
+    private String password;
 
     //Relacion con la tabla productos
     @OneToMany(mappedBy = "user")
@@ -33,7 +34,7 @@ public class User {
         this.products = products;
     }
 
-    private String password;
+
 
 
 
