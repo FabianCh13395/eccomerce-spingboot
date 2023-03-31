@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,7 +46,8 @@ public class HomeController {
     Order order=new Order();
 
     @GetMapping("")
-    public String home(Model model){
+    public String home(Model model, HttpSession session){
+        log.info("Sesion del usuario: {}",session.getAttribute("idUser"));
         List<Product> productList=productService.findAll();
         model.addAttribute("products",productList);
         return "User/home";
@@ -120,8 +122,8 @@ public class HomeController {
     }
 
     @GetMapping("/order")
-    public String orderUser(Model model){
-        User user=userService.findById(1L).get();
+    public String orderUser(Model model,HttpSession session){
+        User user=userService.findById(Long.parseLong(session.getAttribute("idUser").toString())).get();
         model.addAttribute("usuario",user);
         model.addAttribute("cart",details);
         model.addAttribute("orden",order);
@@ -130,19 +132,20 @@ public class HomeController {
 
     //Metodo para guardar la Orden
     @GetMapping("/saveOrder")
-    public String saveOrder(Model model){
+    public String saveOrder(HttpSession session){
         Date dateCreated=new Date();
         order.setDateCreation(dateCreated);
         order.setNumberOrder(orderService.generateNumberOrder());
 
         //Usuario
-        User user=userService.findById(1L).get();
+        User user=userService.findById(Long.parseLong(session.getAttribute("idUser").toString())).get();
         order.setUserOrder(user);
         orderService.save(order);
 
         //guardarDetalles
         for (OrderDetail dt:details){
             dt.setOrder(order);
+            log.info("Esta es la orden: {}",dt);
             orderDetailService.save(dt);
         }
         //limpiar lista y orden

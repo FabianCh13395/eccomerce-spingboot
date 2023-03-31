@@ -2,6 +2,7 @@ package com.raptor.ecommerceproject.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -20,8 +21,8 @@ public class Order {
     private User userOrder;
 
     //Atributo para el detalle de la orden
-    @OneToOne(mappedBy = "order")
-    private OrderDetail orderDetail;
+    @OneToMany(mappedBy = "order")
+    private List<OrderDetail> details;
 
     public Order() {
     }
@@ -83,12 +84,12 @@ public class Order {
         this.userOrder = userOrder;
     }
 
-    public OrderDetail getOrderDetail() {
-        return orderDetail;
+    public List<OrderDetail> getDetails() {
+        return details;
     }
 
-    public void setOrderDetail(OrderDetail orderDetail) {
-        this.orderDetail = orderDetail;
+    public void setDetails(List<OrderDetail> details) {
+        this.details = details;
     }
 
     @Override

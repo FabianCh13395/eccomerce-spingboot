@@ -4,6 +4,7 @@ import com.raptor.ecommerceproject.models.Product;
 import com.raptor.ecommerceproject.models.User;
 import com.raptor.ecommerceproject.services.ProductService;
 import com.raptor.ecommerceproject.services.UploadFileService;
+import com.raptor.ecommerceproject.services.UserService;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -27,6 +29,9 @@ public class ProductController {
     @Autowired
     private UploadFileService uploadFileService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("")
     public String homeProduct(Model model){
         model.addAttribute("productos",productService.findAll());
@@ -39,9 +44,10 @@ public class ProductController {
     }
 
     @PostMapping("/save")
-    public String saveProduct(Product product,@RequestParam("img") MultipartFile file) throws IOException {
+    public String saveProduct(Product product, @RequestParam("img") MultipartFile file, HttpSession session) throws IOException {
         LOGGER.info("Este es el objeto producto {}",product);
-        User user=new User(1L,"","","","","","","");
+
+        User user=userService.findById(Long.parseLong(session.getAttribute("idUser").toString())).get();
         product.setUser(user);
         //Guardar Imagen
         if(product.getId()==null){ //Cuando se crea un producto

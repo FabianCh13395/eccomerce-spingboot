@@ -19,7 +19,7 @@ public class OrderDetail {
 
 
     //Atributo para recuperar los productos
-    @OneToOne
+    @ManyToOne
     private Product product;
 
 
