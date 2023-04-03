@@ -1,6 +1,7 @@
 package com.raptor.ecommerceproject.services;
 
 import com.raptor.ecommerceproject.models.Order;
+import com.raptor.ecommerceproject.models.User;
 import com.raptor.ecommerceproject.repositories.IOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,11 @@ public class OrderServiceImpl implements IOrderService{
             numberConcatenated="000000"+String.valueOf(number);
         }
         return numberConcatenated;
+    }
+
+    @Override
+    public List<Order> findByUserOrder(User user) {
+        return orderRepository.findByUserOrder(user);
     }
 
 }

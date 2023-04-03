@@ -1,6 +1,8 @@
 package com.raptor.ecommerceproject.controllers;
 
+import com.raptor.ecommerceproject.models.Order;
 import com.raptor.ecommerceproject.models.User;
+import com.raptor.ecommerceproject.services.IOrderService;
 import com.raptor.ecommerceproject.services.UserService;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -22,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private IOrderService orderService;
 
 
     @GetMapping("/register")
@@ -64,6 +70,9 @@ public class UserController {
     @GetMapping("/compras")
     public String purchasesUser(Model model, HttpSession session){
         model.addAttribute("sesion",session.getAttribute("idUser"));
+        User user =userService.findById(Long.parseLong(session.getAttribute("idUser").toString())).get();
+        List<Order> orders=orderService.findByUserOrder(user);
+        model.addAttribute("orders",orders);
         return "User/compras";
     }
 }
