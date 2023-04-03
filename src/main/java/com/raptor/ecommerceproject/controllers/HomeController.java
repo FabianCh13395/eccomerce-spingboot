@@ -50,6 +50,9 @@ public class HomeController {
         log.info("Sesion del usuario: {}",session.getAttribute("idUser"));
         List<Product> productList=productService.findAll();
         model.addAttribute("products",productList);
+        //Comprobar sesión activa o no
+        model.addAttribute("sesion",session.getAttribute("idUser"));
+
         return "User/home";
     }
 
@@ -115,9 +118,12 @@ public class HomeController {
     }
     //Ir a la vista carrito con los productos añadidos
     @GetMapping("/getCart")
-    public String getCart(Model model){
+    public String getCart(Model model,HttpSession session){
         model.addAttribute("cart",details);
         model.addAttribute("orden",order);
+
+        //Comprobar sesión activa
+        model.addAttribute("sesion",session.getAttribute("idUser"));
         return "/User/carrito";
     }
 
