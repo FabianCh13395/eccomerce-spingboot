@@ -88,4 +88,11 @@ public class UserController {
         return "User/detallecompra";
     }
 
+    //Cerra sesion
+    @GetMapping("/cerrar")
+    public String logout(HttpSession session){
+        session.removeAttribute("idUser");
+        return "redirect:/";
+    }
+
 }
