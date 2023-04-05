@@ -1,6 +1,7 @@
 package com.raptor.ecommerceproject.controllers;
 
 import com.raptor.ecommerceproject.models.Product;
+import com.raptor.ecommerceproject.services.IOrderService;
 import com.raptor.ecommerceproject.services.ProductService;
 import com.raptor.ecommerceproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +22,25 @@ public class ManagerController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private IOrderService iOrderService;
+
     @GetMapping("")
     public String home(Model model){
         List<Product> products=productService.findAll();
         model.addAttribute("products",products);
         return "manager/home";
     }
+    //Ver todos los usuarios
     @GetMapping("/users")
     public String userAll(Model model){
             model.addAttribute("users",userService.findAll());
         return "manager/usuarios";
     }
 
+    @GetMapping("/orders")
+    public String ordersAll(Model model){
+        model.addAttribute("orders",iOrderService.findAll());
+        return "manager/ordenes";
+    }
 }
