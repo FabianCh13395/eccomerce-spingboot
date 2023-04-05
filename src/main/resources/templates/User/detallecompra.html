@@ -56,7 +56,7 @@
               </thead>
               <tbody>
                 <tr th:each="detail:${details}">
-                  <td th:text="${#numbers.formatInteger(order.totaldetail.quantityOrder,'#0')}"></td>
+                  <td th:text="${#numbers.formatInteger(detail.quantityOrder,'#0')}"></td>
                   <td th:text="${detail.nameOrder}"></td>
                   <td th:text="${detail.priceOrder}"></td>
                   <td th:text="${detail.totalOrder}"></td>
