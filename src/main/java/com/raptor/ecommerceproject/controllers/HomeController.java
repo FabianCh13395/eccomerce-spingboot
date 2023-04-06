@@ -7,7 +7,7 @@ import com.raptor.ecommerceproject.models.User;
 import com.raptor.ecommerceproject.services.IOrderDetailService;
 import com.raptor.ecommerceproject.services.IOrderService;
 import com.raptor.ecommerceproject.services.ProductService;
-import com.raptor.ecommerceproject.services.UserService;
+import com.raptor.ecommerceproject.services.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class HomeController {
     private ProductService productService;
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
     private IOrderService orderService;

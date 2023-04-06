@@ -4,7 +4,7 @@ import com.raptor.ecommerceproject.models.Order;
 import com.raptor.ecommerceproject.models.Product;
 import com.raptor.ecommerceproject.services.IOrderService;
 import com.raptor.ecommerceproject.services.ProductService;
-import com.raptor.ecommerceproject.services.UserService;
+import com.raptor.ecommerceproject.services.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class ManagerController {
     private ProductService productService;
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
     private IOrderService iOrderService;

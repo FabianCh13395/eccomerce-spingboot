@@ -55,7 +55,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr th:each="detail:${details}">
+                <tr th:each="detail:${details}">c
                   <td th:text="${#numbers.formatInteger(detail.quantityOrder,'#0')}"></td>
                   <td th:text="${detail.nameOrder}"></td>
                   <td th:text="${detail.priceOrder}"></td>

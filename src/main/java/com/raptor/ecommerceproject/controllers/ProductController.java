@@ -4,7 +4,7 @@ import com.raptor.ecommerceproject.models.Product;
 import com.raptor.ecommerceproject.models.User;
 import com.raptor.ecommerceproject.services.ProductService;
 import com.raptor.ecommerceproject.services.UploadFileService;
-import com.raptor.ecommerceproject.services.UserService;
+import com.raptor.ecommerceproject.services.IUserService;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ public class ProductController {
     private UploadFileService uploadFileService;
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @GetMapping("")
     public String homeProduct(Model model){

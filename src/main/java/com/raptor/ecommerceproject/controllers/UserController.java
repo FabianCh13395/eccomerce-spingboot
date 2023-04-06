@@ -3,9 +3,10 @@ package com.raptor.ecommerceproject.controllers;
 import com.raptor.ecommerceproject.models.Order;
 import com.raptor.ecommerceproject.models.User;
 import com.raptor.ecommerceproject.services.IOrderService;
-import com.raptor.ecommerceproject.services.UserService;
+import com.raptor.ecommerceproject.services.IUserService;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,10 +26,13 @@ public class UserController {
     private final Logger logger= LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
     private IOrderService orderService;
+
+
+    BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
 
 
     @GetMapping("/register")
@@ -40,6 +44,7 @@ public class UserController {
     public String saveUser(User user){
         user.setTypeUser("USER");
         logger.info("Datos del usuario registrado: {}",user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.save(user);
 
         return "redirect:/";
