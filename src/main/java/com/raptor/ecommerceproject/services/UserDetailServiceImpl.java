@@ -27,16 +27,16 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private Logger log = LoggerFactory.getLogger(UserDetailsService.class);
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        log.info("Este es el username: ",email);
-        Optional<User> optionalUser = userService.findByMail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("Este es el username: ",username);
+        Optional<User> optionalUser = userService.findByMail(username);
         if (optionalUser.isPresent()) {
             log.info("Esto es el id del usuario: ",optionalUser.get().getId());
             session.setAttribute("idUser", optionalUser.get().getId());
             User user = optionalUser.get();
             return org.springframework.security.core.userdetails.User.builder()
-                    .username(user.getName()).
-                    password(bCryptPasswordEncoder.encode(user.getPassword()))
+                    .username(user.getMail()).
+                    password(user.getPassword())
                     .roles(user.getTypeUser()).build();
         } else {
             throw new UsernameNotFoundException("Usuario no encontrado");
